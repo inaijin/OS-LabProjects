@@ -1,0 +1,16 @@
+#include "param.h"
+struct heap {
+  struct proc *heap[NPROC + 1];
+  int end;
+};
+
+// Long-term locks for processes
+struct sleeplock {
+  uint locked;       // Is the lock held?
+  struct spinlock lk; // spinlock protecting this sleep lock
+  
+  // For debugging:
+  char *name;        // Name of lock.
+  int pid;           // Process holding lock
+  struct heap sleeping;
+};
